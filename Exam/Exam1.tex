@@ -1,0 +1,130 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Exam 1}
+\author{Benny Chen}
+\date{\today}
+
+\usepackage{color}
+\usepackage{amsthm}
+\usepackage{amssymb} 
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+
+\maketitle
+
+\section*{Problem 1}
+
+\begin{enumerate}
+    \item Logistic regression can be used for classification.
+    \item When solving a convex optimization problem using gradient descent, the algorithm will always converge since all local minima are also global minima.
+    \item If $X \sim N(H, \sigma^2)$ and $Y = aX + b$, then the variance of $Y$ is $a\sigma^2$?.
+\end{enumerate}
+
+\subsection*{Solutions}
+
+\begin{enumerate}
+    \item True. Logistic regression is a classification algorithm that is used to predict the probability of a categorical variable. In logistic regression, the  variable is binary so either 1 (yes, success, etc.) or 0 (no, failure, etc.). It does this by using a sigmoid function to map predicted values to probabilities.
+    \item True. Due to the convexity of the function, the gradient descent algorithm will always converge to one global minimum. With that, gradient descent will always converge to the global minimum.
+    \item False. If $X \sim N(H, \sigma^2)$ and $Y = aX + b$, then the variance of $Y$ is $a^2\sigma^2$ and not $a\sigma^2$.
+\end{enumerate}
+
+\section*{Problem 2}
+
+Given N training data points $\{(x_k,y_k)\}$, $k = 1,2,\ldots,N$, $x_k$ in $R^d$, and labels as $y_k$ in $\{0,1\}$ (either -1 or 1), we seek a linear discriminant function $f(x) = w \cdot x_k = \sum_{j=1}^{d} {w_j}{x_{k,j}}$ (where $x_{k,j}$ is the feature value of attribute $j$ of a data points $x_k$) optimizing a special loss function $L(z) = e^{-z}$ where $z = yf(x)$.
+\\
+Let $\eta > 0$ be the learning rate, please derive the gradient update $\Delta w_k$ for a randomly elected data point $k$ in the stochastic gradient descent (SGD) method.
+
+\begin{equation}
+    \Delta w_k = - \eta \frac{\partial L(z)}{\partial w_k}
+\end{equation}
+
+\begin{equation}
+    \Delta w_k = - \eta \frac{\partial L(z)}{\partial z} \frac{\partial z}{\partial w_k}
+\end{equation}
+
+\begin{equation}
+    \Delta w_k = \eta e^{-z} \frac{\partial z}{\partial w_k} = \eta e^{-z} y x_k
+\end{equation}
+
+
+\section*{Problem 3}
+
+In the linear regression taught in the lecture, all the data points are considered to be of ``equal'' weight. In reality, we could assign weight for each of them based on different ``importance'' to reduce influence of some potentially noisy data points and focus on the important ones.
+\\
+Consider the weighted least squares problem in which you are given a dataset $\{x_i,y_i,w_i\}$, $i = 1,\ldots,N$, where $w_i$ is an importance weight attached to the i-th data point. The loss is defined as $L(\beta) = \sum_{i}^{N} {w_i}{{(y_i - \beta^T x_i)}^2}$.
+\\
+Please provide the derivation process to find an expression to estimate the coeffcients $\hat{\beta}$ in closed form.
+
+\begin{equation}
+    Y = {[y_1, y_2, \ldots, y_N]}^T
+\end{equation}
+
+\begin{equation}
+    X = {\begin{bmatrix}
+        X_1^T \\
+        X_2^T \\
+        \vdots \\
+        X_N^T
+        \end{bmatrix}}
+\end{equation}
+
+Then.
+
+\begin{equation}
+    L(\beta) = {(Y - X\beta)}^T{W(Y - X\beta)}
+\end{equation}
+
+\begin{equation}
+    L(\beta) = (Y^T - {\beta^T}{X^T})W(Y - X\beta)
+\end{equation}
+
+\begin{equation}
+    L(\beta) = Y^{T}WY - Y^{T}WX\beta - {\beta^T}{X^T}WY + {\beta^T}{X^T}WX\beta
+\end{equation}
+
+\begin{equation}
+    \frac{\partial L(\beta)}{\partial \beta} = -2X^{T}WY + 2X^{T}WX\beta = 0
+\end{equation}
+
+\begin{equation}
+    X^{T}WX\beta = X^{T}WY
+\end{equation}
+
+\begin{equation}
+    \beta = {(X^{T}WX)}^{-1}X^{T}WY
+\end{equation}
+
+\end{document}

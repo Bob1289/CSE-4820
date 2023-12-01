@@ -1,0 +1,279 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Assignment 1: Linear Algebra; Convex Optimization; Linear Regression}
+\author{Benny Chen}
+\date{\today}
+
+\usepackage{color}
+\usepackage{amsthm}
+\usepackage{amssymb} 
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+
+\maketitle
+
+\section{Linear Algebra and Probability}
+
+\subsection{Given the following four vectors}
+
+\begin{table}[h!]
+    \begin{tabular}{l}
+    $x_1 = [0,0.2,1.0,2.2]$   \\
+    $x_2 = [0.7,0.2,0.5,2.0]$ \\
+    $x_3 = [0,1.0,1.5,2.2]$   \\
+    $x_4 = [0.8,0.1,1.2,2.0]$
+    \end{tabular}
+\end{table}
+
+Which point is closest to $x_1$ under each of the following norms?
+
+\begin{enumerate}[label= (\alph*)]
+    \item $L_0$
+    \item $L_1$
+    \item $L_2$
+    \item $L_\infty$
+\end{enumerate}
+
+\subsubsection*{Answer:}
+
+\subsubsection*{(a)}
+$x_3$ is closest to $x_1$ under $L_0$ norm. 
+\\
+$(x_1,x_2) = |0 - 0.7|^0 + |0.2 - 0.2|^0 + |1.0 - 0.5|^0 + |2.2 - 2.0|^0 = 3$
+\\
+$(x_1,x_3) = |0 - 0|^0 + |0.2 - 1.0|^0 + |1.0 - 1.5|^0 + |2.2 - 2.2|^0 = 2$
+\\
+$(x_1,x_4) = |0 - 0.8|^0 + |0.2 - 0.1|^0 + |1.0 - 1.2|^0 + |2.2 - 2.0|^0 = 4$
+
+\subsubsection*{(b)}
+$x_3$ and $x_4$ are closest to $x_1$ under $L_1$ norm.
+\\
+$(x_1,x_2) = |0 - 0.7|^1 + |0.2 - 0.2|^1 + |1.0 - 0.5|^1 + |2.2 - 2.0|^1 = 1.4$
+\\
+$(x_1,x_3) = |0 - 0|^1 + |0.2 - 1.0|^1 + |1.0 - 1.5|^1 + |2.2 - 2.2|^1 = 1.3$
+\\
+$(x_1,x_4) = |0 - 0.8|^1 + |0.2 - 0.1|^1 + |1.0 - 1.2|^1 + |2.2 - 2.0|^1 = 1.3$
+
+
+\subsubsection*{(c)}
+$x_4$ is closest to $x_1$ under $L_2$ norm.
+\\
+$(x_1,x_2) = \sqrt{|0 - 0.7|^2 + |0.2 - 0.2|^2 + |1.0 - 0.5|^2 + |2.2 - 2.0|^2} = 0.78$
+\\
+$(x_1,x_3) = \sqrt{|0 - 0|^2 + |0.2 - 1.0|^2 + |1.0 - 1.5|^2 + |2.2 - 2.2|^2} = 0.89$
+\\
+$(x_1,x_4) = \sqrt{|0 - 0.8|^2 + |0.2 - 0.1|^2 + |1.0 - 1.2|^2 + |2.2 - 2.0|^2} = 0.73$
+
+\subsubsection*{(d)}
+$x_2$ is closest to $x_1$ under $L_\infty$ norm.
+\\
+$(x_1,x_2) = \max\{|0 - 0.7|, |0.2 - 0.2|, |1.0 - 0.5|, |2.2 - 2.0|\} = 0.7$
+\\
+$(x_1,x_3) = \max\{|0 - 0|, |0.2 - 1.0|, |1.0 - 1.5|, |2.2 - 2.2|\} = 0.8$
+\\
+$(x_1,x_4) = \max\{|0 - 0.8|, |0.2 - 0.1|, |1.0 - 1.2|, |2.2 - 2.0|\} = 0.8$
+
+\subsection{}
+\includegraphics*[scale=.45]{./images/Q1P2.png}
+
+\subsubsection*{Answer:}
+
+\begin{equation}
+    E[{(X - X')}^2] = E[X^2 - 2XX' + {X'}^2]
+\end{equation}
+
+\begin{equation}
+    E[X^2 - 2XX' + {X'}^2] = E[X^2] - 2E[XX'] + E[{X'}^2]
+\end{equation}
+
+\begin{equation}
+    \mu^2 + \sigma^2 - 2\mu^2 + \mu^2 + \sigma^2 = 2\sigma^2
+\end{equation}
+
+\subsection{}
+\includegraphics*[scale=.55]{./images/Q1P3P1.png}
+\subsubsection{Answer:}
+B is the correct expression
+\\
+What is $p(x = 1 | w = 2)$?
+
+\subsubsection{Answer:}
+\begin{equation}
+    p(x = 1 | w = 2) = \frac{2}{2} - \frac{(2)(1)}{{(2)}^2} = \frac{1}{2}
+\end{equation}
+
+\subsection{}
+Consider a feature $x$ which is a continuous random variable with possible outcomes being all the nonnegative real numbers. The random variable follows a distribution with the following probability density function (PDF):
+\begin{equation}
+    p(x | \lambda) =
+    \begin{cases}
+        \lambda e^{-\lambda x} & \text{if } x \geq 0 \\
+        0 & x < 0
+    \end{cases}
+\end{equation}
+where the parameter $\lambda$ of the distribution is a positive real number. Given a data set X = $\{x_1, x_2, \ldots, x_n\}$ drawn independent and identically distributed (i.i.d.) from the distribution, derive the maximum likelihood estimate (MLE) of $\lambda$ based on X.
+
+\subsubsection{Answer:}
+\begin{equation}
+    p(X | \lambda) = \prod_{i=1}^{n} p(x_i | \lambda) = \prod_{i=1}^{n} \lambda e^{-\lambda x_i} = \lambda^n e^{-\lambda \sum_{i=1}^{n} x_i}
+\end{equation}
+
+\begin{equation}
+    \ln p(X | \lambda) = \ln \lambda^n e^{-\lambda \sum_{i=1}^{n} x_i} = n \ln \lambda - \lambda \sum_{i=1}^{n} x_i
+\end{equation}
+
+\begin{equation}
+    \frac{\partial}{\partial \lambda} \ln p(X | \lambda) = \frac{n}{\lambda} - \sum_{i=1}^{n} x_i = 0
+\end{equation}
+
+\begin{equation}
+    \frac{n}{\lambda} = \sum_{i=1}^{n} x_i
+\end{equation}
+
+\begin{equation}
+    \lambda = \frac{n}{\sum_{i=1}^{n} x_i}
+\end{equation}
+
+\section{Introduction to Optimization}
+
+\subsection{}
+Please justify if the following statement is correct or not (2 pt for correct T/F 3 pt each for correct explanation).
+\begin{enumerate}[label= (\alph*)]
+    \item In machine learning, the optimization problem we are solving to train a model is always a maximization problem.
+    \item For any constant $c \in R$, $f(x) = \frac{x^2}{c-x}$ is convex on $-\infty < x < c$.
+\end{enumerate}
+
+\subsubsection{Answer:}
+\begin{enumerate}[label= (\alph*)]
+    \item False. In machine learning, the optimization problem we are solving to train a model is not always a maximization problem. It can be a minimization problem as well.
+    \item True. $f(x) = \frac{x^2}{c-x}$ is convex on $-\infty < x < c$.
+    \begin{equation}
+        f''(x) = \frac{2(c-x) - 2x}{{(c-x)}^2} = \frac{2c - 2x}{{(c-x)}^2} > 0
+    \end{equation}
+\end{enumerate}
+
+\subsection{}
+Use the method of Lagrange multipliers to find the maximum values of the objective function. Please provide the maximum values and the corresponding variables.
+objective function:
+\\
+Maximize $f(x,y) = 6xy$ subject to $\frac{x^2}{9}+ \frac{y^2}{16} = 1$
+
+\subsubsection{Answer:}
+
+\begin{equation}
+    \frac{x^2}{9}+ \frac{y^2}{16} = 1 => g(x,y) = \frac{x^2}{9}+ \frac{y^2}{16} - 1 = 0
+\end{equation}
+
+\begin{equation}
+    L(x,y,\lambda) = f(x,y) + \lambda g(x,y) = 6xy + \lambda(\frac{x^2}{9}+ \frac{y^2}{16} - 1)
+\end{equation}
+
+\begin{equation}
+    \frac{\partial}{\partial x} L(x,y,\lambda) = 6y + \frac{{2\lambda}{x}}{9} = 0
+\end{equation}
+
+\begin{equation}
+    \frac{\partial}{\partial y} L(x,y,\lambda) = 6x + \frac{{2\lambda}{y}}{16} = 0
+\end{equation}
+
+\begin{equation}
+    \frac{\partial}{\partial \lambda} L(x,y,\lambda) = \frac{x^2}{9}+ \frac{y^2}{16} - 1 = 0
+\end{equation}
+
+Solving as a system of equations would get the values:
+\begin{equation}
+    (x,y) = ( \frac{3\sqrt{2}}{2},  2\sqrt{2})
+\end{equation}
+
+\begin{equation}
+    (x,y) = ( - \frac{3\sqrt{2}}{2},  - 2\sqrt{2})
+\end{equation}
+
+which gives us 36 as the maximum value.
+
+\section{Linear Regression}
+\subsection{}
+Given known $X \in R^{n \times d}$, $y \in R^{n \times 1}$, and unknown $w \in R^{d \times 1}$, $y = Xw + \epsilon$, where $\epsilon ~ N(0, \sigma^2I)$. The task is to estimate w.
+\begin{enumerate}[label= (\alph*)]
+    \item Please write down the loss function for the linear regression. Then derive the closed form estimation for w based on the lease square method. Note that the derive process is required and we assume that $X^{T}X$ is invertible, i.e, ${(X^{T}X)}^{-1}$ exists.
+    \item Given X = $\begin{bmatrix} 1 & 1 \\ 2 & 2 \\ 1 & 3 \end{bmatrix}$ and y = $\begin{bmatrix} 5 \\ 3 \\ 2 \end{bmatrix}$. Using the closed form estimation for w based on the least square method, please compute $X^{T}X$, $X^{T}y$ and the estimated w.
+\end{enumerate}
+
+\subsubsection{Answer:}
+
+\subsubsection*{(a)}
+The loss function for linear regression is:
+\begin{equation}
+    L(\hat{w}) = {(y - X\hat{w})}^T(y - X\hat{w})
+\end{equation}
+\\
+To derive the closed form estimation for w based on the least square method, we need to take the derivative of the loss function and set it to 0.
+
+\begin{equation}
+    \frac{\partial}{\partial \hat{w}} L(\hat{w}) = \frac{\partial}{\partial \hat{w}} {(y - X\hat{w})}^T(y - X\hat{w}) = 0
+\end{equation}
+
+\begin{equation}
+    \frac{\partial}{\partial \hat{w}} {(y - X\hat{w})}^T(y - X\hat{w}) = -2X^T(y - X\hat{w}) = 0
+\end{equation}
+
+\begin{equation}
+    X^{T}y = X^{T}X\hat{w}
+\end{equation}
+
+\begin{equation}
+    \hat{w} = {(X^{T}X)}^{-1}X^{T}y
+\end{equation}
+
+\subsubsection*{(b)}
+
+\begin{equation}
+    X^{T}X = \begin{bmatrix} 1 & 2 & 1 \\ 1 & 2 & 3 \end{bmatrix} \begin{bmatrix} 1 & 1 \\ 2 & 2 \\ 1 & 3 \end{bmatrix} = \begin{bmatrix} 6 & 8 \\ 8 & 14 \end{bmatrix}
+\end{equation}
+
+\begin{equation}
+    X^{T}y = \begin{bmatrix} 1 & 2 & 1 \\ 1 & 2 & 3 \end{bmatrix} \begin{bmatrix} 5 \\ 3 \\ 2 \end{bmatrix} = \begin{bmatrix} 13 \\ 17 \end{bmatrix}
+\end{equation}
+\\
+Using the closed form estimation for w based on the least square method, we get:
+
+\begin{equation}
+    \hat{w} = {(X^{T}X)}^{-1}X^{T}y1 = \begin{bmatrix} 6 & 8 \\ 8 & 14 \end{bmatrix}^{-1} \begin{bmatrix} 13 \\ 17 \end{bmatrix} = \begin{bmatrix} \frac{23}{10} \\ \frac{-1}{10} \end{bmatrix}
+\end{equation}
+
+
+\end{document}

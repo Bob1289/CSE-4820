@@ -61,61 +61,10 @@ Please show that $k(x,y) = k_1(x,y) + k_2(x,y)$ is also a valid kernel function 
     k(x,y) &= k_1(x,y) + k_2(x,y) \\
     &= \Phi_1 {(x)}^T \Phi_1 (y) + \Phi_2 {(x)}^T \Phi_2 (y) \\
     &= \begin{bmatrix}
-        \Phi_1 {(x)}^T & \Phi_2 {(x)}^T
-    \end{bmatrix}
+        \Phi_1 {(x)} & \Phi_2 {(x)}
+    \end{bmatrix}^T
     \begin{bmatrix}
-        \Phi_1 (y) \\
-        \Phi_2 (y)
-    \end{bmatrix} \\
-    &= \begin{bmatrix}
-        \Phi_1 {(x)}^T & \Phi_2 {(x)}^T
-    \end{bmatrix}
-    \begin{bmatrix}
-        \Phi_1 (y) \\
-        0
-    \end{bmatrix} +
-    \begin{bmatrix}
-        \Phi_1 {(x)}^T & \Phi_2 {(x)}^T
-    \end{bmatrix}
-    \begin{bmatrix}
-        0 \\
-        \Phi_2 (y)
-    \end{bmatrix} \\
-    &= \begin{bmatrix}
-        \Phi_1 {(x)}^T & 0
-    \end{bmatrix}
-    \begin{bmatrix}
-        \Phi_1 (y) \\
-        0
-    \end{bmatrix} +
-    \begin{bmatrix}
-        0 & \Phi_2 {(x)}^T
-    \end{bmatrix}
-    \begin{bmatrix}
-        0 \\
-        \Phi_2 (y)
-    \end{bmatrix} \\
-    &= \begin{bmatrix}
-        \Phi_1 {(x)}^T & 0
-    \end{bmatrix}
-    \begin{bmatrix}
-        \Phi_1 (y) \\
-        0
-    \end{bmatrix} +
-    \begin{bmatrix}
-        0 & \Phi_2 {(x)}^T
-    \end{bmatrix}
-    \begin{bmatrix}
-        0 \\
-        \Phi_2 (y)
-    \end{bmatrix} \\
-    &= \begin{bmatrix}
-        \Phi_1 {(x)}^T &
-        \Phi_2 {(x)}^T
-    \end{bmatrix}
-    \begin{bmatrix}
-        \Phi_1 (y) \\
-        \Phi_2 (y)
+        \Phi_1 {(y)} & \Phi_2 {(y)}
     \end{bmatrix} \\
     &= \Phi {(x)}^T \Phi (y)
 \end{align*}
@@ -218,9 +167,9 @@ Please provide True or False, followed by the Short Answer on your explanations.
 \subsubsection*{Answer:}
 
 \begin{enumerate}[label= (\alph*)]
-    \item True. 
-    \item True.
-    \item False.
+    \item True. This is because SSE is the sum of squared errors, and cohesion is the sum of squared distances from each point to its cluster centroid. As SSE decreases, the sum of squared distances from each point to its cluster centroid decreases, which means cohesion increases.
+    \item True. This is because the k-means algorithm will assign each point which would be in the shaded circles then the algorithm will converge to the center of the shaded circles.
+    \item False. This is because there would not be a guarantee that the k-means algorithm will converge to the center of the shaded circles due to the initial centroids being in the center of the shaded areas.
 \end{enumerate}
 
 \subsection{}
@@ -313,6 +262,6 @@ We use backpropagation to estimate the right parameter values. We start by setti
 \end{equation*}
 $x = (2,0)$, $w = (0,0)$
 \begin{equation*}
-    \frac{\partial f}{\partial w_2} = (\sigma(\sigma(2\cdot0)\cdot0 + 0)(1-\sigma(\sigma(2\cdot0))\cdot0 + 0))\cdot\sigma(2\cdot0) = 0.25
+    \frac{\partial f}{\partial w_2} = (\sigma(\sigma(2\cdot0)\cdot0 + 0)(1-\sigma(\sigma(2\cdot0))\cdot0 + 0))\cdot\sigma(2\cdot0) = 0.125
 \end{equation*}
 \end{document}
